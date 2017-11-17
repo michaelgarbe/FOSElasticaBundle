@@ -20,7 +20,13 @@ matrix:
       env: SYMFONY_VERSION='2.8.*'
     - php: 7.1
       env: SYMFONY_VERSION='2.8.*'
+    # test the latest release (including beta releases)
+    - php: 7.1
+      env: DEPENDENCIES=beta
   fast_finish: true
+
+before_install:
+  - if [ "$DEPENDENCIES" = "beta" ]; then composer config minimum-stability beta; fi;
 
 before_script:
   - curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.2.1.deb
